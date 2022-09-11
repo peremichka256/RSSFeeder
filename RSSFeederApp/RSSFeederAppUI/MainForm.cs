@@ -15,7 +15,7 @@ namespace RSSFeederAppUI
         /// <summary>
         /// Поле хранящее настройки
         /// </summary>
-        private Config _config = new Config();
+        private Config _config = Config.Load();
 
         /// <summary>
         /// Поле хранящее RSS ленту
@@ -32,18 +32,6 @@ namespace RSSFeederAppUI
             feedsUMLTextBox.Text = _config.FeedsURL;
             reloadTimer.Start();
             reloadTimer.Interval = _config.ReloadTime * 60000;
-            
-            try
-            {
-                Config.Load();
-
-            }
-            catch (InvalidCastException)
-            {
-                MessageBox.Show("Файл конфигурации не соответствует формату. Использована стандартная конфигурация.",
-                    "Ошибка файла конфигуарции");
-                _config = new Config();
-            }
         }
 
         /// <summary>
@@ -90,6 +78,7 @@ namespace RSSFeederAppUI
                 _config.ReloadTime = Config.ONE_HOURE;
             }
 
+            _config.Save();
             reloadTimer.Interval = _config.ReloadTime * 60000;
         }
 

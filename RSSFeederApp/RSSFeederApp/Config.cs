@@ -80,18 +80,18 @@ namespace RSSFeederApp
         public static Config Load(string path = Path)
         {
             var xml = new XmlSerializer(typeof(Config));
-        
-            using (var fs = new FileStream(path, FileMode.Open))
+
+            try
             {
-                try
+                using (var fs = new FileStream(path, FileMode.Open))
                 {
                     Config ret = (Config)xml.Deserialize(fs);
                     return ret;
                 }
-                catch
-                {
-                    throw new InvalidCastException("Invalid config data");
-                }
+            }
+            catch
+            {
+                return new Config();
             }
         }
 
