@@ -171,6 +171,7 @@
             // feedsListBox
             // 
             this.feedsListBox.FormattingEnabled = true;
+            this.feedsListBox.HorizontalScrollbar = true;
             this.feedsListBox.Location = new System.Drawing.Point(13, 40);
             this.feedsListBox.Name = "feedsListBox";
             this.feedsListBox.Size = new System.Drawing.Size(392, 407);
