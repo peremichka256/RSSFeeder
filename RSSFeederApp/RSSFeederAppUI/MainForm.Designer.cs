@@ -213,7 +213,10 @@
             this.descriptionTextBox.Size = new System.Drawing.Size(349, 361);
             this.descriptionTextBox.TabIndex = 3;
             this.descriptionTextBox.Text = "";
-            this.descriptionTextBox.TextChanged += new System.EventHandler(this.feedsUMLTextBox_TextChanged);
+            // 
+            // reloadTimer
+            // 
+            this.reloadTimer.Tick += new System.EventHandler(this.reloadTimer_Tick);
             // 
             // MainForm
             // 

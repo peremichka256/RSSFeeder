@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.ServiceModel.Syndication;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
 using RSSFeederApp;
 
+//TODO: Настройки для прокси-сервера - адрес и учётные данные для подключения
 namespace RSSFeederAppUI
 {
     /// <summary>
@@ -27,7 +20,7 @@ namespace RSSFeederAppUI
         /// <summary>
         /// Поле хранящее RSS ленту
         /// </summary>
-        private List<RSSItem> feeds = new List<RSSItem>();
+        private List<RSSItem> _feeds = new List<RSSItem>();
 
         public MainForm()
         {
@@ -37,9 +30,13 @@ namespace RSSFeederAppUI
         private void MainForm_Load(object sender, EventArgs e)
         {
             feedsUMLTextBox.Text = _config.FeedsURL;
+            reloadTimer.Start();
+            reloadTimer.Interval = _config.ReloadTime * 60000;
+            
             try
             {
                 Config.Load();
+
             }
             catch (InvalidCastException)
             {
@@ -50,55 +47,11 @@ namespace RSSFeederAppUI
         }
 
         /// <summary>
-        /// Загружает из ссылки ленту в список
-        /// </summary>
-        public List<RSSItem> LoadRSS(string url)
-        {
-            var settings = new XmlReaderSettings();
-            settings.DtdProcessing = DtdProcessing.Parse;
-            var itemsDTO = new List<RSSItem>();
-
-            try
-            {
-                using (var reader = XmlReader.Create(url, settings))
-                {
-                    var feed = SyndicationFeed.Load(reader);
-                    itemsDTO.AddRange(RSSItem.GetItems(feed));
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"При чтении ленты {url} произошла ошибка:" +
-                                $" {e.Message}", "Ошибка");
-            }
-
-            return itemsDTO;
-        }
-
-        /// <summary>
-        /// Прогружает список статей по введенной в строку ссылке
-        /// </summary>
-        private void feedsUMLTextBox_TextChanged(object sender, EventArgs e)
-        {
-            _config.FeedsURL = feedsUMLTextBox.Text;
-            _config.Save();
-            var listFeeds = LoadRSS(_config.FeedsURL);
-
-            for (var i = 0; i < listFeeds.Count; i++)
-            {
-                feeds.Insert(i, listFeeds[i]);
-                feedsListBox.Items.Insert(i, "("
-                                             + feeds[i].PubTime.ToString("dd.MM.yy HH:mm")
-                                             + ") " + feeds[i].Title);
-            }
-        }
-
-        /// <summary>
         /// Обработка запроса описания статьи
         /// </summary>
         private void feedsListBox_DoubleClick(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(feeds[feedsListBox.SelectedIndex].Link);
+            System.Diagnostics.Process.Start(_feeds[feedsListBox.SelectedIndex].Link);
         }
 
         /// <summary>
@@ -106,9 +59,9 @@ namespace RSSFeederAppUI
         /// </summary>
         private void feedsListBox_Click(object sender, EventArgs e)
         {
-            pubDateLabel.Text = feeds[feedsListBox.SelectedIndex].PubTime.ToString("dd.MM.yy HH:mm");
-            titleTextBox.Text = feeds[feedsListBox.SelectedIndex].Title;
-            descriptionTextBox.Text = feeds[feedsListBox.SelectedIndex].Description;
+            pubDateLabel.Text = _feeds[feedsListBox.SelectedIndex].PubTime.ToString("dd.MM.yy HH:mm");
+            titleTextBox.Text = _feeds[feedsListBox.SelectedIndex].Title;
+            descriptionTextBox.Text = _feeds[feedsListBox.SelectedIndex].Description;
         }
 
         /// <summary>
@@ -116,7 +69,28 @@ namespace RSSFeederAppUI
         /// </summary>
         private void ReloadButtonClick(object sender, EventArgs e)
         {
+            if (sender == oneMinuteReloadButton)
+            {
+                _config.ReloadTime = Config.ONE_MINUTE;
+            }
+            else if (sender == fiveMinuteReloadButton)
+            {
+                _config.ReloadTime = Config.FIVE_MINUTE;
+            }
+            else if (sender == fifteenMinuteReloadButton)
+            {
+                _config.ReloadTime = Config.FIFTEEN_MINUTE;
+            }
+            else if (sender == thirtyMinuteReloadButton)
+            {
+                _config.ReloadTime = Config.THIRTY_MINUTE;
+            }
+            else if (sender == oneHourReloadButton)
+            {
+                _config.ReloadTime = Config.ONE_HOURE;
+            }
 
+            reloadTimer.Interval = _config.ReloadTime * 60000;
         }
 
         /// <summary>
@@ -125,6 +99,54 @@ namespace RSSFeederAppUI
         private void TextFormatButtonClick(object sender, EventArgs e)
         {
 
+        }
+        
+        /// <summary>
+        /// Обработка ввода ссылки на ленту
+        /// </summary>
+        private void feedsUMLTextBox_TextChanged(object sender, EventArgs e)
+        {
+            _feeds.Clear();
+            _config.FeedsURL = feedsUMLTextBox.Text;
+            _config.Save();
+
+            try
+            {
+                _feeds = RSSItem.ParsingRSSItems(_config.FeedsURL);
+                feedsUMLTextBox.BackColor = Color.FloralWhite;
+            }
+            catch (Exception exception)
+            {
+                feedsUMLTextBox.BackColor = Color.LightSalmon;
+            }
+
+            InsertingItemsInTextBox();
+        }
+
+        /// <summary>
+        /// Обновление ленты по отсчёту таймера
+        /// </summary>
+        private void reloadTimer_Tick(object sender, EventArgs e)
+        {
+            _feeds.Clear();
+            _feeds = RSSItem.ParsingRSSItems(_config.FeedsURL);
+            InsertingItemsInTextBox();
+        }
+
+        /// <summary>
+        /// Метод заполняющий листбок элементами RSS ленты
+        /// </summary>
+        private void InsertingItemsInTextBox()
+        {
+            feedsListBox.Items.Clear();
+
+            for (var i = 0; i < _feeds.Count; i++)
+            {
+                feedsListBox.Items.Insert(i,
+                    "(" + _feeds[i].PubTime.ToString(
+                        "dd.MM.yy HH:mm") + ") " 
+                    + _feeds[i].Title);
+            }
         }
     }
 }

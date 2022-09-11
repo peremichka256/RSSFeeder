@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel.Syndication;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ServiceModel.Syndication;
 using System.Xml;
 
 namespace RSSFeederApp
@@ -112,6 +107,26 @@ namespace RSSFeederApp
             }
 
             return ret;
+        }
+
+        /// <summary>
+        /// Парсит RSS ленту в список объектов Item
+        /// </summary>
+        /// <param name="url">Ссылка на ленту</param>
+        /// <returns></returns>
+        public static List<RSSItem> ParsingRSSItems(string url)
+        {
+            var settings = new XmlReaderSettings();
+            settings.DtdProcessing = DtdProcessing.Parse;
+            var items = new List<RSSItem>();
+            
+            using (var reader = XmlReader.Create(url, settings))
+            {
+                var feed = SyndicationFeed.Load(reader);
+                items.AddRange(GetItems(feed));
+            }
+
+            return items;
         }
     }
 }

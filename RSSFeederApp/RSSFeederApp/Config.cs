@@ -10,7 +10,7 @@ namespace RSSFeederApp
         /// <summary>
         /// Стандартный путь конфигурации
         /// </summary>
-        private const string Path = "Config.xml";
+        public const string Path = "Config.xml";
 
         /// <summary>
         /// Ссылка на ленту
@@ -23,12 +23,35 @@ namespace RSSFeederApp
         private int _reloadTime;
 
         /// <summary>
+        /// Константы содержащие минуты частоты обновления
+        /// </summary>
+        public const int ONE_MINUTE = 1;
+        public const int FIVE_MINUTE = 5;
+        public const int FIFTEEN_MINUTE = 15;
+        public const int THIRTY_MINUTE = 30;
+        public const int ONE_HOURE = 60;
+
+        /// <summary>
         /// Свойство возвращающее и задающее ссылку на ленту
         /// </summary>
         public string FeedsURL
         {
             get { return _feedsURL; }
-            set { _feedsURL = value; }
+            set
+            {
+                Uri uriResult;
+                bool isStringURL = Uri.TryCreate(value, UriKind.Absolute, out uriResult)
+                              && (uriResult.Scheme == Uri.UriSchemeHttp 
+                                  || uriResult.Scheme == Uri.UriSchemeHttps);
+                if (isStringURL)
+                {
+                    _feedsURL = value;
+                }
+                else
+                {
+                    throw new Exception("URI is not correct");
+                }
+            }
         }
 
         /// <summary>
@@ -39,7 +62,7 @@ namespace RSSFeederApp
             get { return _reloadTime; }
             set
             {
-                if (value < 0 || value > 60)
+                if (value < ONE_MINUTE || value > ONE_HOURE)
                 {
                     throw new Exception("Reload time should be in 1 hour range");
                 }
@@ -92,7 +115,7 @@ namespace RSSFeederApp
         public Config()
         {
             FeedsURL = "https://habr.com/rss/interesting";
-            ReloadTime = 2;
+            ReloadTime = ONE_MINUTE;
         }
     }
 }
