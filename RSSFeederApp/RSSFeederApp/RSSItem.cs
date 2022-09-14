@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel.Syndication;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace RSSFeederApp
@@ -24,6 +25,11 @@ namespace RSSFeederApp
         private string _description;
 
         /// <summary>
+        /// Необходимо ли перевести текст в HTML
+        /// </summary>
+        private bool _isTextHTML;
+
+        /// <summary>
         /// Ссылка на статью
         /// </summary>
         private string _link;
@@ -33,8 +39,8 @@ namespace RSSFeederApp
         /// </summary>
         public string Title
         {
-            get { return _title; }
-            set { _title = value; }
+            get => _title; 
+            set => _title = value;
         }
 
         /// <summary>
@@ -42,8 +48,8 @@ namespace RSSFeederApp
         /// </summary>
         public DateTimeOffset PubTime
         {
-            get { return _pubTime.ToLocalTime(); }
-            set { _pubTime = value; }
+            get => _pubTime.ToLocalTime();
+            set => _pubTime = value;
         }
 
         /// <summary>
@@ -51,8 +57,27 @@ namespace RSSFeederApp
         /// </summary>
         public string Description
         {
-            get { return _description; }
-            set { _description = value; }
+            get
+            {
+                if (IsTextHTML)
+                {
+                    return ConvertToHTML(_description);
+                }
+                else
+                {
+                    return ConvertToPlainText(_description);
+                }
+            }
+            set => _description = value;
+        }
+
+        /// <summary>
+        /// Свойство задающее формат текста описания
+        /// </summary>
+        public bool IsTextHTML
+        {
+            get => _isTextHTML;
+            set => _isTextHTML = value;
         }
 
         /// <summary>
@@ -60,7 +85,7 @@ namespace RSSFeederApp
         /// </summary>
         public string Link
         {
-            get { return _link; }
+            get => _link;
             set
             {
                 Uri uriResult;
@@ -97,16 +122,16 @@ namespace RSSFeederApp
         /// <returns></returns>
         public static RSSItem[] GetItems(SyndicationFeed feed)
         {
-            var ret = new RSSItem[feed.Items.Count()];
+            var itemsArrat = new RSSItem[feed.Items.Count()];
 
             var i = 0;
             foreach (var syndicationItem in feed.Items)
             {
-                ret[i] = new RSSItem(syndicationItem);
+                itemsArrat[i] = new RSSItem(syndicationItem);
                 i++;
             }
 
-            return ret;
+            return itemsArrat;
         }
 
         /// <summary>
@@ -118,15 +143,37 @@ namespace RSSFeederApp
         {
             var settings = new XmlReaderSettings();
             settings.DtdProcessing = DtdProcessing.Parse;
-            var items = new List<RSSItem>();
+            var itemsList = new List<RSSItem>();
             
             using (var reader = XmlReader.Create(url, settings))
             {
                 var feed = SyndicationFeed.Load(reader);
-                items.AddRange(GetItems(feed));
+                itemsList.AddRange(GetItems(feed));
             }
 
-            return items;
+            return itemsList;
+        }
+
+        /// <summary>
+        /// Обрабатывает все изображения html, чтобы они влезали в окно
+        /// </summary>
+        /// <param name="text">html-код</param>
+        /// <returns>Текс в HTML</returns>
+        private string ConvertToHTML(string text)
+        {
+            return Regex.Replace(text, @"(<img src=[^>]+)>",
+                "$1 width=\"300\"  >");
+        }
+
+        /// <summary>
+        /// Меняет все тэги html на &lt; &gt;, чтобы они отображались, как текст
+        /// </summary>
+        /// <param name="text">html-код</param>
+        /// <returns>Просто текст</returns>
+        private string ConvertToPlainText(string text)
+        {
+            return text.Replace("<", "&lt;").Replace(">",
+                "&gt;");
         }
     }
 }

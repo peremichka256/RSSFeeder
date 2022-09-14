@@ -1,5 +1,8 @@
-﻿using System.Xml.Serialization;
+﻿using System.Net;
+using System.Text.RegularExpressions;
+using System.Xml.Serialization;
 
+//TODO: Настройки для прокси-сервера - адрес и учётные данные для подключения
 namespace RSSFeederApp
 {
     /// <summary>
@@ -23,6 +26,11 @@ namespace RSSFeederApp
         private int _reloadTime;
 
         /// <summary>
+        /// Так и не понял как и зачем
+        /// </summary>
+        ///private WebProxy _proxy;
+        /// 
+        /// <summary>
         /// Константы содержащие минуты частоты обновления
         /// </summary>
         public const int ONE_MINUTE = 1;
@@ -36,7 +44,7 @@ namespace RSSFeederApp
         /// </summary>
         public string FeedsURL
         {
-            get { return _feedsURL; }
+            get => _feedsURL;
             set
             {
                 Uri uriResult;
@@ -59,7 +67,7 @@ namespace RSSFeederApp
         /// </summary>
         public int ReloadTime
         {
-            get { return _reloadTime; }
+            get =>_reloadTime;
             set
             {
                 if (value < ONE_MINUTE || value > ONE_HOURE)
@@ -75,8 +83,7 @@ namespace RSSFeederApp
         /// Загрузка конфига
         /// </summary>
         /// <param name="path"></param>
-        /// <returns></returns>
-        /// <exception cref="InvalidCastException"></exception>
+        /// <returns>Загруженные или созданный заново конфиг</returns>
         public static Config Load(string path = Path)
         {
             var xml = new XmlSerializer(typeof(Config));
@@ -85,8 +92,8 @@ namespace RSSFeederApp
             {
                 using (var fs = new FileStream(path, FileMode.Open))
                 {
-                    Config ret = (Config)xml.Deserialize(fs);
-                    return ret;
+                    Config userConfig = (Config)xml.Deserialize(fs);
+                    return userConfig;
                 }
             }
             catch

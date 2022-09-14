@@ -5,7 +5,11 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSFeederAppUI", "RSSFeederAppUI\RSSFeederAppUI.csproj", "{F0255BB3-5F17-4ECD-85FF-C4D6C6A5D451}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSFeederApp", "RSSFeederApp\RSSFeederApp.csproj", "{D3C5858C-9CFB-4B9A-96F2-171E7107CDB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSSFeederApp", "RSSFeederApp\RSSFeederApp.csproj", "{D3C5858C-9CFB-4B9A-96F2-171E7107CDB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{AAA7C275-AF33-4A74-9B46-942CC608343C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSFeederAppUnitTests", "RSSFeederAppUnitTests\RSSFeederAppUnitTests.csproj", "{DC823CBE-E9EB-4092-B5A3-3303A6D46176}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +25,16 @@ Global
 		{D3C5858C-9CFB-4B9A-96F2-171E7107CDB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3C5858C-9CFB-4B9A-96F2-171E7107CDB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3C5858C-9CFB-4B9A-96F2-171E7107CDB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC823CBE-E9EB-4092-B5A3-3303A6D46176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC823CBE-E9EB-4092-B5A3-3303A6D46176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC823CBE-E9EB-4092-B5A3-3303A6D46176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC823CBE-E9EB-4092-B5A3-3303A6D46176}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC823CBE-E9EB-4092-B5A3-3303A6D46176} = {AAA7C275-AF33-4A74-9B46-942CC608343C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06C00875-D0E9-44C8-A4D1-A79CF7A390FF}

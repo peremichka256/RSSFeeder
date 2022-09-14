@@ -44,9 +44,9 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.feedsListBox = new System.Windows.Forms.ListBox();
             this.feedsUMLTextBox = new System.Windows.Forms.TextBox();
+            this.descriptionWebBrowser = new System.Windows.Forms.WebBrowser();
             this.titleTextBox = new System.Windows.Forms.RichTextBox();
             this.pubDateLabel = new System.Windows.Forms.Label();
-            this.descriptionTextBox = new System.Windows.Forms.RichTextBox();
             this.reloadTimer = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -71,10 +71,11 @@
             this.settingsDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reloadButton,
             this.toolStripMenuItem2});
+            this.settingsDropDownButton.Font = new System.Drawing.Font("Georgia", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.settingsDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsDropDownButton.Image")));
             this.settingsDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.settingsDropDownButton.Name = "settingsDropDownButton";
-            this.settingsDropDownButton.Size = new System.Drawing.Size(80, 22);
+            this.settingsDropDownButton.Size = new System.Drawing.Size(85, 22);
             this.settingsDropDownButton.Text = "Настройки";
             // 
             // reloadButton
@@ -86,41 +87,41 @@
             this.thirtyMinuteReloadButton,
             this.oneHourReloadButton});
             this.reloadButton.Name = "reloadButton";
-            this.reloadButton.Size = new System.Drawing.Size(168, 22);
+            this.reloadButton.Size = new System.Drawing.Size(180, 22);
             this.reloadButton.Text = "Обновлять через";
             // 
             // oneMinuteReloadButton
             // 
             this.oneMinuteReloadButton.Name = "oneMinuteReloadButton";
-            this.oneMinuteReloadButton.Size = new System.Drawing.Size(123, 22);
+            this.oneMinuteReloadButton.Size = new System.Drawing.Size(180, 22);
             this.oneMinuteReloadButton.Text = "1 минуту";
             this.oneMinuteReloadButton.Click += new System.EventHandler(this.ReloadButtonClick);
             // 
             // fiveMinuteReloadButton
             // 
             this.fiveMinuteReloadButton.Name = "fiveMinuteReloadButton";
-            this.fiveMinuteReloadButton.Size = new System.Drawing.Size(123, 22);
+            this.fiveMinuteReloadButton.Size = new System.Drawing.Size(180, 22);
             this.fiveMinuteReloadButton.Text = "5 минут";
             this.fiveMinuteReloadButton.Click += new System.EventHandler(this.ReloadButtonClick);
             // 
             // fifteenMinuteReloadButton
             // 
             this.fifteenMinuteReloadButton.Name = "fifteenMinuteReloadButton";
-            this.fifteenMinuteReloadButton.Size = new System.Drawing.Size(123, 22);
+            this.fifteenMinuteReloadButton.Size = new System.Drawing.Size(180, 22);
             this.fifteenMinuteReloadButton.Text = "15 минут";
             this.fifteenMinuteReloadButton.Click += new System.EventHandler(this.ReloadButtonClick);
             // 
             // thirtyMinuteReloadButton
             // 
             this.thirtyMinuteReloadButton.Name = "thirtyMinuteReloadButton";
-            this.thirtyMinuteReloadButton.Size = new System.Drawing.Size(123, 22);
+            this.thirtyMinuteReloadButton.Size = new System.Drawing.Size(180, 22);
             this.thirtyMinuteReloadButton.Text = "30 минут";
             this.thirtyMinuteReloadButton.Click += new System.EventHandler(this.ReloadButtonClick);
             // 
             // oneHourReloadButton
             // 
             this.oneHourReloadButton.Name = "oneHourReloadButton";
-            this.oneHourReloadButton.Size = new System.Drawing.Size(123, 22);
+            this.oneHourReloadButton.Size = new System.Drawing.Size(180, 22);
             this.oneHourReloadButton.Text = "60 минут";
             this.oneHourReloadButton.Click += new System.EventHandler(this.ReloadButtonClick);
             // 
@@ -130,20 +131,20 @@
             this.textFormatButton,
             this.htmlFormatButton});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(168, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem2.Text = "Формат текста";
             // 
             // textFormatButton
             // 
             this.textFormatButton.Name = "textFormatButton";
-            this.textFormatButton.Size = new System.Drawing.Size(158, 22);
+            this.textFormatButton.Size = new System.Drawing.Size(165, 22);
             this.textFormatButton.Text = "Обычний текст";
             this.textFormatButton.Click += new System.EventHandler(this.TextFormatButtonClick);
             // 
             // htmlFormatButton
             // 
             this.htmlFormatButton.Name = "htmlFormatButton";
-            this.htmlFormatButton.Size = new System.Drawing.Size(158, 22);
+            this.htmlFormatButton.Size = new System.Drawing.Size(165, 22);
             this.htmlFormatButton.Text = "HTML";
             this.htmlFormatButton.Click += new System.EventHandler(this.TextFormatButtonClick);
             // 
@@ -161,59 +162,63 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.descriptionWebBrowser);
             this.splitContainer1.Panel2.Controls.Add(this.titleTextBox);
             this.splitContainer1.Panel2.Controls.Add(this.pubDateLabel);
-            this.splitContainer1.Panel2.Controls.Add(this.descriptionTextBox);
             this.splitContainer1.Size = new System.Drawing.Size(787, 457);
             this.splitContainer1.SplitterDistance = 408;
             this.splitContainer1.TabIndex = 1;
             // 
             // feedsListBox
             // 
+            this.feedsListBox.Font = new System.Drawing.Font("Georgia", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.feedsListBox.FormattingEnabled = true;
             this.feedsListBox.HorizontalScrollbar = true;
+            this.feedsListBox.ItemHeight = 15;
             this.feedsListBox.Location = new System.Drawing.Point(13, 40);
             this.feedsListBox.Name = "feedsListBox";
-            this.feedsListBox.Size = new System.Drawing.Size(392, 407);
+            this.feedsListBox.Size = new System.Drawing.Size(392, 394);
             this.feedsListBox.TabIndex = 1;
             this.feedsListBox.Click += new System.EventHandler(this.feedsListBox_Click);
             this.feedsListBox.DoubleClick += new System.EventHandler(this.feedsListBox_DoubleClick);
             // 
             // feedsUMLTextBox
             // 
+            this.feedsUMLTextBox.Font = new System.Drawing.Font("Georgia", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.feedsUMLTextBox.Location = new System.Drawing.Point(12, 9);
             this.feedsUMLTextBox.Name = "feedsUMLTextBox";
-            this.feedsUMLTextBox.Size = new System.Drawing.Size(393, 20);
+            this.feedsUMLTextBox.Size = new System.Drawing.Size(393, 21);
             this.feedsUMLTextBox.TabIndex = 0;
             this.feedsUMLTextBox.TextChanged += new System.EventHandler(this.feedsUMLTextBox_TextChanged);
             // 
+            // descriptionWebBrowser
+            // 
+            this.descriptionWebBrowser.Location = new System.Drawing.Point(14, 103);
+            this.descriptionWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.descriptionWebBrowser.Name = "descriptionWebBrowser";
+            this.descriptionWebBrowser.Size = new System.Drawing.Size(349, 342);
+            this.descriptionWebBrowser.TabIndex = 7;
+            // 
             // titleTextBox
             // 
+            this.titleTextBox.Font = new System.Drawing.Font("Georgia", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.titleTextBox.Location = new System.Drawing.Point(14, 40);
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.ReadOnly = true;
-            this.titleTextBox.Size = new System.Drawing.Size(349, 40);
+            this.titleTextBox.Size = new System.Drawing.Size(349, 57);
             this.titleTextBox.TabIndex = 6;
             this.titleTextBox.Text = "";
             // 
             // pubDateLabel
             // 
             this.pubDateLabel.AutoSize = true;
+            this.pubDateLabel.Font = new System.Drawing.Font("Georgia", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.pubDateLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.pubDateLabel.Location = new System.Drawing.Point(11, 12);
             this.pubDateLabel.Name = "pubDateLabel";
-            this.pubDateLabel.Size = new System.Drawing.Size(95, 13);
+            this.pubDateLabel.Size = new System.Drawing.Size(115, 15);
             this.pubDateLabel.TabIndex = 5;
             this.pubDateLabel.Text = "Дата публикации";
-            // 
-            // descriptionTextBox
-            // 
-            this.descriptionTextBox.Location = new System.Drawing.Point(14, 86);
-            this.descriptionTextBox.Name = "descriptionTextBox";
-            this.descriptionTextBox.ReadOnly = true;
-            this.descriptionTextBox.Size = new System.Drawing.Size(349, 361);
-            this.descriptionTextBox.TabIndex = 3;
-            this.descriptionTextBox.Text = "";
             // 
             // reloadTimer
             // 
@@ -228,6 +233,8 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(803, 521);
+            this.MinimumSize = new System.Drawing.Size(803, 521);
             this.Name = "MainForm";
             this.Text = "RSSFeeder";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -252,7 +259,6 @@
         private System.Windows.Forms.TextBox feedsUMLTextBox;
         private System.Windows.Forms.RichTextBox titleTextBox;
         private System.Windows.Forms.Label pubDateLabel;
-        private System.Windows.Forms.RichTextBox descriptionTextBox;
         private System.Windows.Forms.ToolStripDropDownButton settingsDropDownButton;
         private System.Windows.Forms.ToolStripMenuItem reloadButton;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
@@ -264,6 +270,7 @@
         private System.Windows.Forms.ToolStripMenuItem textFormatButton;
         private System.Windows.Forms.ToolStripMenuItem htmlFormatButton;
         private System.Windows.Forms.Timer reloadTimer;
+        private System.Windows.Forms.WebBrowser descriptionWebBrowser;
     }
 }
 

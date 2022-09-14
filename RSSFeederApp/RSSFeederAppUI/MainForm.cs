@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using RSSFeederApp;
 
-//TODO: Настройки для прокси-сервера - адрес и учётные данные для подключения
 namespace RSSFeederAppUI
 {
     /// <summary>
@@ -35,7 +34,7 @@ namespace RSSFeederAppUI
         }
 
         /// <summary>
-        /// Обработка запроса описания статьи
+        /// Открытие статьи в браузере
         /// </summary>
         private void feedsListBox_DoubleClick(object sender, EventArgs e)
         {
@@ -47,9 +46,11 @@ namespace RSSFeederAppUI
         /// </summary>
         private void feedsListBox_Click(object sender, EventArgs e)
         {
-            pubDateLabel.Text = _feeds[feedsListBox.SelectedIndex].PubTime.ToString("dd.MM.yy HH:mm");
+            pubDateLabel.Text = _feeds[feedsListBox.SelectedIndex].
+                PubTime.ToString("dd.MM.yy HH:mm");
             titleTextBox.Text = _feeds[feedsListBox.SelectedIndex].Title;
-            descriptionTextBox.Text = _feeds[feedsListBox.SelectedIndex].Description;
+            descriptionWebBrowser.DocumentText = _feeds[feedsListBox.
+                SelectedIndex].Description;
         }
 
         /// <summary>
@@ -87,7 +88,20 @@ namespace RSSFeederAppUI
         /// </summary>
         private void TextFormatButtonClick(object sender, EventArgs e)
         {
-
+            if (sender == textFormatButton)
+            {
+                foreach (var item in _feeds)
+                {
+                    item.IsTextHTML = false;
+                }
+            }
+            else if (sender == htmlFormatButton)
+            {
+                foreach (var item in _feeds)
+                {
+                    item.IsTextHTML = true;
+                }
+            }
         }
         
         /// <summary>
@@ -104,7 +118,7 @@ namespace RSSFeederAppUI
                 _feeds = RSSItem.ParsingRSSItems(_config.FeedsURL);
                 feedsUMLTextBox.BackColor = Color.FloralWhite;
             }
-            catch (Exception exception)
+            catch
             {
                 feedsUMLTextBox.BackColor = Color.LightSalmon;
             }
