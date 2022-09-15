@@ -87,41 +87,41 @@
             this.thirtyMinuteReloadButton,
             this.oneHourReloadButton});
             this.reloadButton.Name = "reloadButton";
-            this.reloadButton.Size = new System.Drawing.Size(180, 22);
+            this.reloadButton.Size = new System.Drawing.Size(175, 22);
             this.reloadButton.Text = "Обновлять через";
             // 
             // oneMinuteReloadButton
             // 
             this.oneMinuteReloadButton.Name = "oneMinuteReloadButton";
-            this.oneMinuteReloadButton.Size = new System.Drawing.Size(180, 22);
+            this.oneMinuteReloadButton.Size = new System.Drawing.Size(133, 22);
             this.oneMinuteReloadButton.Text = "1 минуту";
             this.oneMinuteReloadButton.Click += new System.EventHandler(this.ReloadButtonClick);
             // 
             // fiveMinuteReloadButton
             // 
             this.fiveMinuteReloadButton.Name = "fiveMinuteReloadButton";
-            this.fiveMinuteReloadButton.Size = new System.Drawing.Size(180, 22);
+            this.fiveMinuteReloadButton.Size = new System.Drawing.Size(133, 22);
             this.fiveMinuteReloadButton.Text = "5 минут";
             this.fiveMinuteReloadButton.Click += new System.EventHandler(this.ReloadButtonClick);
             // 
             // fifteenMinuteReloadButton
             // 
             this.fifteenMinuteReloadButton.Name = "fifteenMinuteReloadButton";
-            this.fifteenMinuteReloadButton.Size = new System.Drawing.Size(180, 22);
+            this.fifteenMinuteReloadButton.Size = new System.Drawing.Size(133, 22);
             this.fifteenMinuteReloadButton.Text = "15 минут";
             this.fifteenMinuteReloadButton.Click += new System.EventHandler(this.ReloadButtonClick);
             // 
             // thirtyMinuteReloadButton
             // 
             this.thirtyMinuteReloadButton.Name = "thirtyMinuteReloadButton";
-            this.thirtyMinuteReloadButton.Size = new System.Drawing.Size(180, 22);
+            this.thirtyMinuteReloadButton.Size = new System.Drawing.Size(133, 22);
             this.thirtyMinuteReloadButton.Text = "30 минут";
             this.thirtyMinuteReloadButton.Click += new System.EventHandler(this.ReloadButtonClick);
             // 
             // oneHourReloadButton
             // 
             this.oneHourReloadButton.Name = "oneHourReloadButton";
-            this.oneHourReloadButton.Size = new System.Drawing.Size(180, 22);
+            this.oneHourReloadButton.Size = new System.Drawing.Size(133, 22);
             this.oneHourReloadButton.Text = "60 минут";
             this.oneHourReloadButton.Click += new System.EventHandler(this.ReloadButtonClick);
             // 
@@ -131,7 +131,7 @@
             this.textFormatButton,
             this.htmlFormatButton});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(175, 22);
             this.toolStripMenuItem2.Text = "Формат текста";
             // 
             // textFormatButton
@@ -232,9 +232,8 @@
             this.ClientSize = new System.Drawing.Size(787, 482);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(803, 521);
-            this.MinimumSize = new System.Drawing.Size(803, 521);
             this.Name = "MainForm";
             this.Text = "RSSFeeder";
             this.Load += new System.EventHandler(this.MainForm_Load);

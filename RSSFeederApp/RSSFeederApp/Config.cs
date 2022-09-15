@@ -16,6 +16,11 @@ namespace RSSFeederApp
         public const string Path = "Config.xml";
 
         /// <summary>
+        /// Стандартный ссылка на RSS ленту
+        /// </summary>
+        public const string DefaultURL = "https://habr.com/rss/interesting";
+
+        /// <summary>
         /// Ссылка на ленту
         /// </summary>
         private string _feedsURL;
@@ -121,7 +126,7 @@ namespace RSSFeederApp
         /// </summary>
         public Config()
         {
-            FeedsURL = "https://habr.com/rss/interesting";
+            FeedsURL = DefaultURL;
             ReloadTime = ONE_MINUTE;
         }
     }

@@ -89,10 +89,10 @@ namespace RSSFeederApp
             set
             {
                 Uri uriResult;
-                bool result = Uri.TryCreate(value, UriKind.Absolute, out uriResult)
+                bool isURICorrect = Uri.TryCreate(value, UriKind.Absolute, out uriResult)
                               && (uriResult.Scheme == Uri.UriSchemeHttp 
                                   || uriResult.Scheme == Uri.UriSchemeHttps);
-                if (result)
+                if (isURICorrect)
                 {
                     _link = value;
                 }
